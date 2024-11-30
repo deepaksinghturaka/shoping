@@ -1,0 +1,102 @@
+<%- include('./partials/header') %>  
+<% if (typeof success !== 'undefined' && success.length > 0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%= success %>
+        </span>
+    </div>
+<% } %>
+
+<style>
+    .hidden {
+        display: none;
+    }
+    .toggle-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+    .toggle-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+<div class="min-h-screen flex flex-col">
+    <div class="container px-10 py-20 flex flex-grow">
+        <div class="w-[25%] flex h-screen flex-col items-start">
+            <div class="flex flex-col">
+                <a class="block w-fit mb-2" href="">All Products</a>
+                <a class="block w-fit mb-2" href="">Create new product</a>
+            </div>
+        </div>
+        <main class="w-3/4 bg-white p-8 shadow ml-4">
+            <h2 class="text-xl font-bold mb-4">Create New Product</h2>
+            <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-2">Product Details</h3>
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Product Image</label>
+                        <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input name="name" type="text" placeholder="Product Name" class="border p-2 rounded w-full">
+                        <input name="price" type="text" placeholder="Product Price" class="border p-2 rounded w-full">
+                        <input name="discount" type="text" placeholder="Discount Price" class="border p-2 rounded w-full">
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="bgcolor">Background Color</label>
+                            <input name="bgcolor_color" id="bgcolor-color" type="color" class="border p-2 rounded w-full">
+                            <input name="bgcolor_text" id="bgcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Background Color"> 
+                            <button type="button" class="toggle-button" onclick="toggleInput('bgcolor')">Custom</button>
+                        </div>
+                        <div>
+                            <label for="panelcolor">Panel Color</label>
+                            <input name="panelcolor_color" id="panelcolor-color" type="color" class="border p-2 rounded w-full">
+                            <input name="panelcolor_text" id="panelcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Panel Color">
+                            <button type="button" class="toggle-button" onclick="toggleInput('panelcolor')">Custom</button>
+                        </div>
+                        <div>
+                            <label for="textcolor">Text Color</label>
+                            <input name="textcolor_color" id="textcolor-color" type="color" class="border p-2 rounded w-full">
+                            <input name="textcolor_text" id="textcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Text Color">
+                            <button type="button" class="toggle-button" onclick="toggleInput('textcolor')">Custom</button>
+                        </div>
+                    </div>
+                </div>
+                <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit" value="Create New Product">
+            </form>
+        
+            <script>
+                function toggleInput(type) {
+                    const colorInput = document.getElementById(`${type}-color`);
+                    const textInput = document.getElementById(`${type}-text`);
+                    
+                    if (colorInput.classList.contains('hidden')) {
+                        // Show text input and hide color input
+                        colorInput.classList.remove('hidden');
+                        textInput.classList.add('hidden'); 
+                        colorInput.setAttribute('name', `${type}_text`);
+                        textInput.setAttribute('name', '');
+                    } else {
+                        // Show color input and hide text input
+                        colorInput.classList.add('hidden');
+                        textInput.classList.remove('hidden'); 
+                        colorInput.setAttribute('name', `${type}_color`);
+                        textInput.setAttribute('name', '');
+                    }
+                }
+            </script>
+        </main>
+    </div>
+</div>   
+<%- include('./partials/footer') %>
