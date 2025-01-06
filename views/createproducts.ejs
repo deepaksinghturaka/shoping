@@ -1,102 +1,186 @@
-<%- include('./partials/header') %>  
+<%- include('./partials/header') %>
 <% if (typeof success !== 'undefined' && success.length > 0) { %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-        <span class="inline-block mt-1 mb-1 text-white">
+    <div class="absolute top-5 left-1/2 transform -translate-x-1/2 bg-blue-500 p-4 rounded shadow-md">
+        <span class="text-white font-medium">
             <%= success %>
         </span>
     </div>
 <% } %>
 
 <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
     .hidden {
         display: none;
     }
+
     .toggle-button {
         background-color: #007bff;
         color: #fff;
         border: none;
-        padding: 5px 10px;
+        padding: 6px 12px;
         cursor: pointer;
-        border-radius: 3px;
-        margin-left: 5px;
+        border-radius: 5px;
+        font-size: 14px;
     }
+
     .toggle-button:hover {
         background-color: #0056b3;
     }
+
+    .min-h-screen {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        flex-grow: 1;
+        gap: 20px;
+        border: 5px solid #007bff; /* Outer Border */
+        border-radius: 15px;       /* Rounded Corners */
+        padding: 20px;            /* Inner Padding */
+        background: #ffffff;      /* White Background */
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Shadow Effect */
+    }
+ 
+    a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    input[type="file"] {
+        padding: 6px;
+    }
+
+    input:focus, select:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .shadow {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 </style>
 
-
-<div class="min-h-screen flex flex-col">
-    <div class="container px-10 py-20 flex flex-grow">
-        <div class="w-[25%] flex h-screen flex-col items-start">
-            <div class="flex flex-col">
-                <a class="block w-fit mb-2" href="">All Products</a>
-                <a class="block w-fit mb-2" href="">Create new product</a>
-            </div>
-        </div>
-        <main class="w-3/4 bg-white p-8 shadow ml-4">
-            <h2 class="text-xl font-bold mb-4">Create New Product</h2>
+<div class="min-h-screen">
+    <div class="container">
+        <aside class="w-1/4">
+            <nav>
+                <a href="#">All Products</a>
+                <a href="#">Create New Product</a>
+            </nav>
+        </aside>
+        <main class="w-3/4">
+            <h2>Create New Product</h2>
             <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-2">Product Details</h3>
-                    <div class="mb-4">
-                        <label class="block mb-2 font-medium">Product Image</label>
-                        <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
+                <section>
+                    <h3 class="font-semibold text-lg mb-2">Product Details</h3>
+                    <div>
+                        <label>Product Image</label>
+                        <input name="image" type="file">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input name="name" type="text" placeholder="Product Name" class="border p-2 rounded w-full">
-                        <input name="price" type="text" placeholder="Product Price" class="border p-2 rounded w-full">
-                        <input name="discount" type="text" placeholder="Discount Price" class="border p-2 rounded w-full">
+                    <div class="grid">
+                        <input name="name" type="text" placeholder="Product Name">
+                        <input name="price" type="text" placeholder="Product Price">
+                        <input name="discount" type="text" placeholder="Discount Price">
                     </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                </section>
+
+                <section>
+                    <h3 class="font-semibold text-lg mb-2">Panel Details</h3>
+                    <div class="grid">
                         <div>
                             <label for="bgcolor">Background Color</label>
-                            <input name="bgcolor_color" id="bgcolor-color" type="color" class="border p-2 rounded w-full">
-                            <input name="bgcolor_text" id="bgcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Background Color"> 
+                            <input name="bgcolor_color" id="bgcolor-color" type="color">
+                            <input name="bgcolor_text" id="bgcolor-text" type="text" class="hidden" placeholder="Background Color">
                             <button type="button" class="toggle-button" onclick="toggleInput('bgcolor')">Custom</button>
                         </div>
                         <div>
                             <label for="panelcolor">Panel Color</label>
-                            <input name="panelcolor_color" id="panelcolor-color" type="color" class="border p-2 rounded w-full">
-                            <input name="panelcolor_text" id="panelcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Panel Color">
+                            <input name="panelcolor_color" id="panelcolor-color" type="color">
+                            <input name="panelcolor_text" id="panelcolor-text" type="text" class="hidden" placeholder="Panel Color">
                             <button type="button" class="toggle-button" onclick="toggleInput('panelcolor')">Custom</button>
                         </div>
                         <div>
                             <label for="textcolor">Text Color</label>
-                            <input name="textcolor_color" id="textcolor-color" type="color" class="border p-2 rounded w-full">
-                            <input name="textcolor_text" id="textcolor-text" type="text" class="hidden border p-2 rounded w-full" placeholder="Text Color">
+                            <input name="textcolor_color" id="textcolor-color" type="color">
+                            <input name="textcolor_text" id="textcolor-text" type="text" class="hidden" placeholder="Text Color">
                             <button type="button" class="toggle-button" onclick="toggleInput('textcolor')">Custom</button>
                         </div>
                     </div>
-                </div>
-                <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit" value="Create New Product">
+                </section>
+
+                <button class="btn-primary mt-3" type="submit">Create New Product</button>
             </form>
-        
-            <script>
-                function toggleInput(type) {
-                    const colorInput = document.getElementById(`${type}-color`);
-                    const textInput = document.getElementById(`${type}-text`);
-                    
-                    if (colorInput.classList.contains('hidden')) {
-                        // Show text input and hide color input
-                        colorInput.classList.remove('hidden');
-                        textInput.classList.add('hidden'); 
-                        colorInput.setAttribute('name', `${type}_text`);
-                        textInput.setAttribute('name', '');
-                    } else {
-                        // Show color input and hide text input
-                        colorInput.classList.add('hidden');
-                        textInput.classList.remove('hidden'); 
-                        colorInput.setAttribute('name', `${type}_color`);
-                        textInput.setAttribute('name', '');
-                    }
-                }
-            </script>
         </main>
     </div>
-</div>   
+</div>
 <%- include('./partials/footer') %>
+
+<script>
+    function toggleInput(type) {
+        const colorInput = document.getElementById(`${type}-color`);
+        const textInput = document.getElementById(`${type}-text`);
+        
+        if (colorInput.classList.contains('hidden')) {
+            colorInput.classList.remove('hidden');
+            textInput.classList.add('hidden');
+        } else {
+            colorInput.classList.add('hidden');
+            textInput.classList.remove('hidden');
+        }
+    }
+</script>
