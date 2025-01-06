@@ -1,4 +1,4 @@
-const express = require("express");
+ const express = require("express");
 const app = express();
 const expressSession = require('express-session');
 const path = require("path");
@@ -10,6 +10,7 @@ require("dotenv").config(); // Load environment variables
 const paymentRoute = require('./routes/paymentRouter');
 const indexRouter = require("./routes/index");
 const ownersRouter = require("./routes/ownersRouter");
+const ownerAdminPanal =require("./routes/ownerAdminPanal");
 const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 const paymentRouter = require("./routes/paymentRouter");
@@ -34,6 +35,7 @@ app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+app.use("/", ownerAdminPanal );
 app.use('/', paymentRouter);    
 
 // Error handling middleware
@@ -43,7 +45,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
