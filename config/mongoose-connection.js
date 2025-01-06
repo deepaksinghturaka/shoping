@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const config = require('config');
+ const mongoose = require('mongoose');
 const dbgr = require('debug')('development:mongoose');
 
-const mongoURI = `${config.get("MONGODB_URI")}/Shoping`;
+// Directly define MongoDB URI here
+const mongoURI = "mongodb+srv://deepakpay17:bP4XFk00t9E97Gtz@shoping.uzc9y.mongodb.net/onlineShoping";
 
 mongoose.connect(mongoURI)
 .then(() => dbgr('connected'))
